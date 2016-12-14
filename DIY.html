@@ -1,0 +1,891 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>DIY</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/resize.js"></script>
+		<style type="text/css">
+			@font-face {
+				font-family: 'iconfont';
+				/* project id 201755 */
+				src: url('//at.alicdn.com/t/font_4m88x3eybq33di.eot');
+				src: url('//at.alicdn.com/t/font_4m88x3eybq33di.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_4m88x3eybq33di.woff') format('woff'), url('//at.alicdn.com/t/font_4m88x3eybq33di.ttf') format('truetype'), url('//at.alicdn.com/t/font_4m88x3eybq33di.svg#iconfont') format('svg');
+			}
+			
+			.iconfont {
+				font-family: "iconfont" !important;
+				font-size: 16px;
+				font-style: normal;
+				-webkit-font-smoothing: antialiased;
+				-webkit-text-stroke-width: 0.2px;
+				-moz-osx-font-smoothing: grayscale;
+			}
+			
+			.clothes-list {
+				width: 100%;
+				position: absolute;
+				top: 50px;
+				padding: 10px;
+				z-index: 9999;
+			}
+			
+			.img-wrap {
+				width: 100%;
+				margin: 50px auto 0;
+				transform: scale(1.3);
+			}
+			
+			.clothes-bar {
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				position: absolute;
+				right: 50px;
+				top: 20px;
+			}
+			
+			.clothes-bar img {
+				width: 100%;
+			}
+			
+			.btn-wrap {
+				text-align: center;
+				position: relative;
+				z-index: 9999;
+			}
+			
+			.slide-btn {
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				display: inline-block;
+				background: #3879D9;
+				text-align: center;
+				line-height: 60px;
+				position: absolute;
+				bottom: -215px;
+				color: #fff;
+			}
+			
+			.img-btn {
+				left: .6rem;
+			}
+			
+			.btnshowactive {
+				animation: btnshow .15s ease-out forwards;
+			}
+			
+			.btnhideactive {
+				animation: btnhide .15s linear forwards;
+			}
+			
+			.sucai-btn {
+				left: 1.6rem;
+			}
+			
+			.text-btn {
+				left: 2.6rem;
+			}
+			
+			@keyframes btnshow {
+				0% {
+					bottom: -215px;
+				}
+				50% {
+					bottom: 90px;
+				}
+				100% {
+					bottom: 60px;
+				}
+			}
+			
+			@keyframes btnhide {
+				0% {
+					bottom: 60px;
+				}
+				100% {
+					bottom: -215px;
+				}
+			}
+			
+			.center-btn {
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				background: #3879D9;
+				text-align: center;
+				line-height: 50px;
+				margin: 0 auto;
+				position: relative;
+				z-index: 9999;
+				color: #fff;
+			}
+			
+			.center-btn.hideactive {
+				animation: centerbtnhide .2s linear forwards;
+			}
+			
+			.center-btn.showactive {
+				animation: centerbtnshow .2s linear forwards;
+			}
+			
+			.center-btn.show-active {
+				animation: show .1s linear forwards;
+				/*transform: rotate(90deg);*/
+			}
+			
+			.center-btn.hide-active {
+				animation: hide .1s linear forwards;
+			}
+			
+			@keyframes hide {
+				0% {
+					transform: rotate(45deg);
+				}
+				50% {
+					transform: rotate(-20deg);
+				}
+				100% {
+					transform: rotate(0deg);
+				}
+			}
+			
+			@keyframes show {
+				0% {
+					transform: rotate(0);
+				}
+				50% {
+					transform: rotate(60deg);
+				}
+				100% {
+					transform: rotate(45deg);
+				}
+			}
+			
+			.mui-backdrop.mask1 {
+				position: fixed;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				z-index: 998;
+				background-color: rgba(255, 255, 255, .8);
+			}
+			
+			.mui-content {
+				overflow: hidden;
+			}
+			
+			@keyframes centerbtnhide {
+				0% {
+					bottom: 0;
+				}
+				100% {
+					bottom: -40px;
+				}
+			}
+			
+			@keyframes centerbtnshow {
+				0% {
+					bottom: -40px;
+				}
+				100% {
+					bottom: 0px;
+				}
+			}
+			
+			.mask2 {
+				background-color: rgba(255, 255, 255, .5);
+			}
+			
+			ul {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.colo-list li {
+				list-style: none;
+				display: inline-block;
+				width: 30px;
+				height: 30px;
+				margin-right: 10px;
+				border: 1px solid #ccc;
+				border-radius: 5px;
+			}
+			
+			.colo-list li.active {
+				border-color: #3879D9;
+			}
+			
+			.mui-control-content {
+				background: #fff;
+			}
+			
+			.pic-list-wrap,
+			.sucai-list-wrap {
+				padding-top: 50px;
+			}
+			
+			.pic-list .noname {
+				padding: 10px;
+				height: 1.85rem;
+			}
+			
+			.pic-wrap {
+				background-color: #fff;
+				padding: 10px;
+			}
+			
+			.pic-wrap img {
+				width: 100%;
+			}
+			
+			.sucai-nav {
+				background: #fff;
+			}
+			
+			.btn-wrap a {
+				color: #fff;
+			}
+			
+			#picfile {
+				opacity: 0;
+				width: 100%;
+				position: absolute;
+				bottom: 0rem;
+				height: 100%;
+				left: .1rem;
+				z-index: 9999;
+			}
+			
+			.show-text {
+				width: 90%;
+				height: 2rem;
+				border: 1px dashed;
+				margin: .1rem auto;
+				text-align: center;
+				line-height: 2rem;
+			}
+			
+			.edit-area {
+				background-color: #fff;
+				width: 100%;
+				padding: .1rem;
+			}
+			
+			.edit-area input {
+				width: 85%;
+				background-color: #EFF2F6;
+				border: 0;
+				margin: 0;
+				margin-right: .1rem;
+			}
+			
+			p {
+				margin: 0!important;
+			}
+			
+			.edit-btn {
+				text-align: center;
+			}
+			
+			.color-list-bar li {
+				float: left;
+				list-style: none;
+				height: .2rem;
+				width: .2rem;
+			}
+			
+			.color-list-bar {
+				padding-left: .1rem;
+			}
+			
+			.style-text {
+				padding: .1rem;
+			}
+		</style>
+	</head>
+
+	<body class="mui-fullscreen">
+		<div class="mui-content" style="position: relative;">
+			<div class="diy-wrap" style="display: block;">
+				<div class="img-wrap">
+					<img style="width: 100%;" src="images/img.png" alt="" />
+				</div>
+				<div class="center-btn" style="">
+					<span class="mui-icon mui-icon-plusempty" style="line-height: inherit;"></span>
+				</div>
+				<div class="mui-row btn-wrap">
+					<div class="slide-btn img-btn">
+						<a href="#picture">图片</a>
+					</div>
+					<div class="slide-btn sucai-btn">素材库</div>
+					<div class="slide-btn text-btn">文字</div>
+				</div>
+				<div class="clothes-bar">
+					<img src="images/clothes.png" alt="" />
+				</div>
+				<div class="clothes-list" style="display: none;">
+					<div id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-primary" style="background: #fff;border-bottom: 1px solid #ccc;">
+						<a class="mui-control-item mui-active" href="#item1">
+							T恤
+						</a>
+						<a class="mui-control-item" href="#item2">
+							圆领卫衣
+						</a>
+						<a class="mui-control-item" href="#item3">
+							连帽卫衣
+						</a>
+					</div>
+					<div>
+						<div id="item1" class=" mui-control-content mui-active">
+							<div class="mui-row " style="padding: 10px;">
+								<div class="mui-col-xs-2">男装</div>
+								<div class="mui-col-xs-10 ">
+									<ul class="colo-list">
+										<li style="background: #fff;"></li>
+										<li style="background: #F36100;"></li>
+										<li style="background: #C81724;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+
+									</ul>
+								</div>
+
+							</div>
+							<div class="mui-row " style="padding: 10px;">
+								<div class="mui-col-xs-2">女装</div>
+								<div class="mui-col-xs-10 ">
+									<ul class="colo-list">
+										<li style="background: #fff;"></li>
+										<li style="background: #F36100;"></li>
+										<li style="background: #C81724;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+
+									</ul>
+								</div>
+
+							</div>
+							<div class="mui-row " style="padding: 10px;">
+								<div class="mui-col-xs-2">童装</div>
+								<div class="mui-col-xs-10 ">
+									<ul class="colo-list">
+										<li style="background: #fff;"></li>
+										<li style="background: #F36100;"></li>
+										<li style="background: #C81724;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+
+									</ul>
+								</div>
+
+							</div>
+						</div>
+						<div id="item2" class=" mui-control-content ">
+							<div class="mui-row " style="padding: 10px;">
+								<div class="mui-col-xs-2">男装</div>
+								<div class="mui-col-xs-10 ">
+									<ul class="colo-list">
+										<li style="background: #fff;"></li>
+										<li style="background: #F36100;"></li>
+										<li style="background: #C81724;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+
+									</ul>
+								</div>
+
+							</div>
+							<div class="mui-row " style="padding: 10px;">
+								<div class="mui-col-xs-2">女装</div>
+								<div class="mui-col-xs-10 ">
+									<ul class="colo-list">
+										<li style="background: #fff;"></li>
+										<li style="background: #F36100;"></li>
+										<li style="background: #C81724;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+
+									</ul>
+								</div>
+
+							</div>
+							<div class="mui-row " style="padding: 10px;">
+								<div class="mui-col-xs-2">童装</div>
+								<div class="mui-col-xs-10 ">
+									<ul class="colo-list">
+										<li style="background: #fff;"></li>
+										<li style="background: #F36100;"></li>
+										<li style="background: #C81724;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+
+									</ul>
+								</div>
+
+							</div>
+						</div>
+						<div id="item3" class=" mui-control-content">
+							<div class="mui-row " style="padding: 10px;">
+								<div class="mui-col-xs-2">男装</div>
+								<div class="mui-col-xs-10 ">
+									<ul class="colo-list">
+										<li style="background: #fff;"></li>
+										<li style="background: #F36100;"></li>
+										<li style="background: #C81724;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+
+									</ul>
+								</div>
+
+							</div>
+							<div class="mui-row " style="padding: 10px;">
+								<div class="mui-col-xs-2">女装</div>
+								<div class="mui-col-xs-10 ">
+									<ul class="colo-list">
+										<li style="background: #fff;"></li>
+										<li style="background: #F36100;"></li>
+										<li style="background: #C81724;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+
+									</ul>
+								</div>
+
+							</div>
+							<div class="mui-row " style="padding: 10px;">
+								<div class="mui-col-xs-2">童装</div>
+								<div class="mui-col-xs-10 ">
+									<ul class="colo-list">
+										<li style="background: #fff;"></li>
+										<li style="background: #F36100;"></li>
+										<li style="background: #C81724;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+										<li style="background: #159BC9;"></li>
+
+									</ul>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="pic-list-wrap" style="display: none;">
+				<header class="mui-bar mui-bar-nav">
+					<span class="mui-icon mui-icon-closeempty mui-pull-left pic-close-btn"></span>
+					<h1 class="mui-title">推荐</h1>
+				</header>
+				<div class="mui-row pic-list">
+					<div class="mui-col-xs-6 noname">
+						<div class="pic-wrap " id="open-camera">
+							<label for="picfile"><img src="images/img0.png" /></label>
+							<input type="file" name="" id="picfile" value="" />
+						</div>
+					</div>
+					<div class="mui-col-xs-6 noname">
+						<div class="pic-wrap">
+							<img src="images/img3.png" />
+						</div>
+					</div>
+					<div class="mui-col-xs-6 noname">
+						<div class="pic-wrap">
+							<img src="images/img2.png" />
+						</div>
+					</div>
+					<div class="mui-col-xs-6 noname">
+						<div class="pic-wrap">
+							<img src="images/img3.png" />
+						</div>
+					</div>
+					<div class="mui-col-xs-6 noname">
+						<div class="pic-wrap">
+							<img src="images/img2.png" />
+						</div>
+					</div>
+					<div class="mui-col-xs-6 noname">
+						<div class="pic-wrap">
+							<img src="images/img3.png" />
+						</div>
+					</div>
+					<div class="mui-col-xs-6 noname">
+						<div class="pic-wrap">
+							<img src="images/img2.png" />
+						</div>
+					</div>
+					<div class="mui-col-xs-6 noname">
+						<div class="pic-wrap">
+							<img src="images/img3.png" />
+						</div>
+					</div>
+
+					<div class="mui-col-xs-6 noname">
+						<div class="pic-wrap">
+							<img src="images/img2.png" />
+						</div>
+					</div>
+					<div class="mui-col-xs-6 noname">
+						<div class="pic-wrap">
+							<img src="images/img2.png" />
+						</div>
+					</div>
+					<div class="mui-col-xs-6 noname">
+						<div class="pic-wrap">
+							<img src="images/img2.png" />
+						</div>
+					</div>
+					<div class="mui-col-xs-6 noname">
+						<div class="pic-wrap">
+							<img src="images/img2.png" />
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="sucai-list-wrap" style="display: none;">
+				<header class="mui-bar mui-bar-nav">
+					<span class="mui-icon mui-icon-closeempty mui-pull-left sucai-close-btn"></span>
+					<h1 class="mui-title">图库</h1>
+				</header>
+				<div class=" mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted sucai-nav">
+					<div class="mui-scroll">
+						<a class="mui-control-item mui-active">
+							文字
+						</a>
+						<a class="mui-control-item">
+							节日
+						</a>
+						<a class="mui-control-item">
+							卡通
+						</a>
+						<a class="mui-control-item">
+							潮范
+						</a>
+						<a class="mui-control-item">
+							萌宠
+						</a>
+						<a class="mui-control-item">
+							体育
+						</a>
+						<a class="mui-control-item">
+							贴纸
+						</a>
+					</div>
+				</div>
+				<ul class="mui-table-view mui-grid-view" style="background: #ccc;">
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#">
+							<img class="mui-media-object" src="images/sucai1.png">
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#">
+							<img class="mui-media-object" src="images/kt1.png">
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#"><img class="mui-media-object" src="images/wz1.png">
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#">
+							<img class="mui-media-object" src="images/cf1.png">
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#">
+							<img class="mui-media-object" src="images/cf1.png">
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#">
+							<img class="mui-media-object" src="images/cf1.png">
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#">
+							<img class="mui-media-object" src="images/cf1.png">
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#">
+							<img class="mui-media-object" src="images/cf1.png">
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#">
+							<img class="mui-media-object" src="images/cf1.png">
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#">
+							<img class="mui-media-object" src="images/kt1.png">
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#"><img class="mui-media-object" src="images/wz1.png">
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#">
+							<img class="mui-media-object" src="images/cf1.png">
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#">
+							<img class="mui-media-object" src="images/cf1.png">
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#">
+							<img class="mui-media-object" src="images/cf1.png">
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#">
+							<img class="mui-media-object" src="images/cf1.png">
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#">
+							<img class="mui-media-object" src="images/cf1.png">
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<a href="#">
+							<img class="mui-media-object" src="images/cf1.png">
+					</li>
+				</ul>
+			</div>
+			<div class="text-edit-wrap" style="display: none;">
+				<div class="show-text">
+					adf
+				</div>
+				<div class="edit-area">
+					<input type="text" /><span class="sure-btn">确定</span>
+					<div class="mui-row" style="padding-top:.1rem;">
+						<div class="mui-col-xs-4 edit-btn">
+							<i class="iconfont">&#xe61e;</i>
+							<p>键盘</p>
+						</div>
+						<div class="mui-col-xs-4 edit-btn">
+							<i class="iconfont">&#xe651;</i>
+							<p>样式</p>
+						</div>
+						<div class="mui-col-xs-4 edit-btn">
+							<i class="iconfont">&#xe669;</i>
+							<p>字体</p>
+						</div>
+					</div>
+
+				</div>
+				<div class="mui-row style-control">
+					<p class="style-text" style="padding: .1rem;">
+						颜色
+					</p>
+					<ul class="color-list-bar">
+						<li style="background-color: #000000;"></li>
+						<li style="background-color: #FFFFFF;"></li>
+						<li style="background-color: #999999;"></li>
+						<li style="background-color: #693B10;"></li>
+						<li style="background-color: #E04A39;"></li>
+						<li style="background-color: #EF8B43;"></li>
+						<li style="background-color: #F5C142;"></li>
+						<li style="background-color: #FDF55D;"></li>
+						<li style="background-color: #A9EA56;"></li>
+						<li style="background-color: #61C255;"></li>
+						<li style="background-color: #72DAC2;"></li>
+						<li style="background-color: #51B2F8;"></li>
+						<li style="background-color: #4C6BF6;"></li>
+						<li style="background-color: #7222C1;"></li>
+						<li style="background-color: #B22FAE;"></li>
+						<li style="background-color: #EC5CAA;"></li>
+						<li style="background-color: #F2AABF;"></li>
+					</ul>
+					<h5 class="style-text" style="clear: left;padding: .15rem 0 0 .1rem;">透明度：<span id="block-range-val" style="color:#007AFF;">100</span><span style="color:#007AFF;">%</span></h5>
+					<div class="mui-input-row mui-input-range" style="padding: 0 .1rem;margin: 0;">
+						<input type="range" id="block-range" value="100" min="0" max="100" data-input-slider="4"><span class="mui-tooltip mui-hidden" style="left: 181.55px;">100</span>
+					</div>
+					<p class="style-text">对齐方式</p>
+					<div class="mui-row text-align-btn" style="padding-top:.1rem;">
+						<div class="mui-col-xs-4 edit-btn text-align-left">
+							<i class="iconfont">&#xe615;</i>
+							<p>左对齐</p>
+						</div>
+						<div class="mui-col-xs-4 edit-btn text-align-center">
+							<i class="iconfont">&#xe610;</i>
+							<p>居中</p>
+						</div>
+						<div class="mui-col-xs-4 edit-btn text-align-right">
+							<i class="iconfont">&#xe696;</i>
+							<p>右对齐</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<script type="text/javascript">
+		mui('.text-align-btn').on('tap','.text-align-left',function(){
+			$('.show-text').css({
+				"textAlign":'left'
+			});
+		});
+		mui('.text-align-btn').on('tap','.text-align-center',function(){
+			$('.show-text').css({
+				"textAlign":'center'
+			});
+		});
+		mui('.text-align-btn').on('tap','.text-align-right',function(){
+			$('.show-text').css({
+				"textAlign":'right'
+			});
+		});
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			//监听input事件，获取range的value值，也可以直接element.value获取该range的值
+			var rangeList = document.querySelectorAll('input[type="range"]');
+			for(var i = 0, len = rangeList.length; i < len; i++) {
+				rangeList[i].addEventListener('input', function() {
+					
+					if(this.id.indexOf('field') >= 0) {
+						document.getElementById(this.id + '-input').value = this.value;
+					} else {
+						document.getElementById(this.id + '-val').innerHTML = this.value;
+						$('.show-text').css({
+							'opacity':this.value/100
+						})
+					}
+
+				});
+			}
+
+			
+
+			mui('.mui-scroll-wrapper').scroll();
+			var onOff = true;
+			var mask = mui.createMask(); //callback为用户点击蒙版时自动执行的回调
+
+			function hideSlideBtn() {
+				$('.img-btn').addClass('btnhideactive').removeClass('btnshowactive');
+				setTimeout(function() {
+					$('.sucai-btn').addClass('btnhideactive ').removeClass('btnshowactive');
+					setTimeout(function() {
+						$('.text-btn').addClass('btnhideactive ').removeClass('btnshowactive');
+					}, 100);
+				}, 100);
+			};
+			mui('body').on('tap', '.center-btn', function() {
+
+				if(onOff) {
+					mask.show();
+					$('.mui-backdrop').addClass('mask1');
+					$(this).addClass('show-active').removeClass('hide-active');
+					$('.img-btn').addClass('btnshowactive').removeClass('btnhideactive');
+					setTimeout(function() {
+						$('.sucai-btn').addClass('btnshowactive').removeClass('btnhideactive');
+						setTimeout(function() {
+							$('.text-btn').addClass('btnshowactive').removeClass('btnhideactive');
+						}, 100);
+					}, 100);
+					onOff = false;
+				} else {
+					mask.close();
+					$('.mui-backdrop').removeClass('mask1');
+					$(this).addClass('hide-active').removeClass('show-active');
+					hideSlideBtn();
+					onOff = true;
+				}
+
+			});
+			//点击空白处，返回操作
+			mui('body').on('tap', '.mask1', function() {
+				$(this).removeClass('mask1');
+				$('.center-btn').addClass('hide-active').removeClass('show-active');
+				onOff = true;
+
+				hideSlideBtn();
+			});
+			mui('.btn-wrap').on('tap', '.slide-btn', function() {
+				hideSlideBtn();
+				$('.center-btn').addClass('hide-active').removeClass('show-active');
+				onOff = true;
+				mask.close();
+			});
+
+			//弹出衣服颜色
+			mui('.mui-content').on('tap', '.clothes-bar', function() {
+
+				$('.center-btn').animate({
+					'bottom': '-100px'
+				}, 400);
+				$('.img-wrap').animate({
+					'width': '50%',
+					'marginTop': '300px'
+
+				});
+				setTimeout(function() {
+					mask.show();
+					$('.mui-backdrop').addClass('mask2');
+					$('.clothes-list').show();
+				}, 400);
+			});
+
+			mui('body').on('tap', '.mask2', function() {
+				$('.clothes-list').hide();
+				$('.center-btn').animate({
+					'bottom': '0px'
+				}, 400);
+				$('.img-wrap').animate({
+					'width': '100%',
+					'marginTop': '50px'
+				});
+			});
+
+			//选衣服颜色和款式
+			mui('.colo-list').on('tap', 'li', function() {
+				$(this).addClass('active').siblings().removeClass('active');
+				$(this).parents().siblings().find('li').removeClass('active');
+			});
+			//打开图片推荐列表
+			mui('.btn-wrap').on('tap', '.img-btn', function() {
+
+				$('.diy-wrap').hide();
+				$('.pic-list-wrap').show();
+
+			});
+			//关闭图片推荐列表
+			mui('.mui-bar').on('tap', '.pic-close-btn', function() {
+				$('.pic-list-wrap').hide();
+				$('.diy-wrap').show();
+
+			});
+			//打开素材库
+			mui('.btn-wrap').on('tap', '.sucai-btn', function() {
+				$('.diy-wrap').hide();
+				$('.sucai-list-wrap').show();
+			});
+			//关闭素材列表
+			mui('.mui-bar').on('tap', '.sucai-close-btn', function() {
+				$('.sucai-list-wrap').hide();
+				$('.diy-wrap').show();
+
+			});
+			//打开文字编辑页
+			mui('.btn-wrap').on('tap', '.text-btn', function() {
+				$('.diy-wrap').hide();
+				$('.text-edit-wrap').show();
+			});
+			
+			//关闭素材列表
+			mui('.edit-area').on('tap', '.sure-btn', function() {
+				$('.text-edit-wrap').hide();
+				$('.diy-wrap').show();
+
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			#div1 {
+				width: 100px;
+				height: 100px;
+				background-color: red;
+				position: absolute;
+				left: 800px;
+				top: 100px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="div1">1</div>
+
+		<input type="button" value="开始" id="button" />
+
+		<script type="text/javascript">
+			function move() {
+				var odiv = document.getElementById('div1');
+
+				setInterval(function() {
+					var speed = (300 - odiv.offsetTop) / 10; // Math.ceil是向上取整。而Math.floor是向下取整。。
+					if(speed > 0) {
+						speed = Math.ceil(speed)
+					} else {
+						speed = Math.floor(speed)
+					}
+					odiv.style.top = odiv.offsetTop + speed + 'px';
+					document.title = odiv.offsetTop+ ',' + speed //用来验证 odiv移动的距离和速度
+				}, 30);
+
+			}
+			var obutton = document.getElementById('button');
+			obutton.addEventListener('click', move, false)
+		</script>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>
