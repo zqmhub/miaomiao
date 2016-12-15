@@ -362,7 +362,7 @@
 				border: 1px solid #000;
 				position: absolute;
 				top: -0.035rem;
-				display: block;
+				display: none;
 				background-color: #FF5053;
 			}
 			.show-color-box{
@@ -1094,6 +1094,12 @@
 							_x = lastLiX
 					};
 					
+					var oLi = $('.color-list-bar li');
+					/*for(i=0;i<=oLi.length;i++){
+						if(_x ==$('.color-list-bar li')[i].offset().left ){
+							console.log("123")
+						}
+					}*/
 					
 						$('.drag').css({
 					left:_x
@@ -1105,8 +1111,16 @@
 
 			$('.color-list-bar')[0].addEventListener("touchend", function() {
 				_move = false;
-				//$('.drag').hide();
+				$('.drag').hide();
 			});
+			mui('.color-list-bar ').on('tap','li',function(){
+				var color = $(this).css('backgroundColor');
+				$('.drag').css('backgroundColor',color);
+				var dragBgc = $('.drag').css('backgroundColor')
+				console.log(dragBgc)
+				$('.show-text').css('color',dragBgc)
+			})
+			
 		</script>
 	</body>
 
