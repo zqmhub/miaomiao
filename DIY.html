@@ -1070,6 +1070,7 @@
 				var _x = Number(touch.pageX); //页面触点X坐标
 				var firstLiX = $('.first-li').offset().left;
 				var lastLiX = $('.last-li').offset().left;
+				 
 				if( _x<firstLiX ){
 							_x = firstLiX
 					};
@@ -1092,7 +1093,7 @@
 					if( _x> lastLiX){
 							_x = lastLiX
 					};
-					if(_x){}
+					
 					
 						$('.drag').css({
 					left:_x
@@ -1104,7 +1105,7 @@
 
 			$('.color-list-bar')[0].addEventListener("touchend", function() {
 				_move = false;
-				$('.drag').hide();
+				//$('.drag').hide();
 			});
 		</script>
 	</body>
