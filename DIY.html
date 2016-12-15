@@ -11,11 +11,13 @@
 		<script src="js/resize.js"></script>
 		<style type="text/css">
 			@font-face {
-				font-family: 'iconfont';
-				/* project id 201755 */
-				src: url('//at.alicdn.com/t/font_4m88x3eybq33di.eot');
-				src: url('//at.alicdn.com/t/font_4m88x3eybq33di.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_4m88x3eybq33di.woff') format('woff'), url('//at.alicdn.com/t/font_4m88x3eybq33di.ttf') format('truetype'), url('//at.alicdn.com/t/font_4m88x3eybq33di.svg#iconfont') format('svg');
-			}
+  font-family: 'iconfont';  /* project id 201755 */
+  src: url('//at.alicdn.com/t/font_lknigkgoyug9o1or.eot');
+  src: url('//at.alicdn.com/t/font_lknigkgoyug9o1or.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_lknigkgoyug9o1or.woff') format('woff'),
+  url('//at.alicdn.com/t/font_lknigkgoyug9o1or.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_lknigkgoyug9o1or.svg#iconfont') format('svg');
+}
 			
 			.iconfont {
 				font-family: "iconfont" !important;
@@ -68,7 +70,7 @@
 				text-align: center;
 				line-height: 60px;
 				position: absolute;
-				bottom: -215px;
+				bottom: -2.5rem;
 				color: #fff;
 			}
 			
@@ -94,22 +96,22 @@
 			
 			@keyframes btnshow {
 				0% {
-					bottom: -215px;
+					bottom: -2.2rem;
 				}
 				50% {
-					bottom: 90px;
+					bottom: 1rem;
 				}
 				100% {
-					bottom: 60px;
+					bottom: .9rem;
 				}
 			}
 			
 			@keyframes btnhide {
 				0% {
-					bottom: 60px;
+					bottom: .9rem;
 				}
 				100% {
-					bottom: -215px;
+					bottom: -2.2rem;
 				}
 			}
 			
@@ -308,11 +310,80 @@
 			.style-text {
 				padding: .1rem;
 			}
+			
+			.right-btn {
+				width: .3rem;
+				height: .3rem;
+				border: 1px solid #ccc;
+				border-radius: 50%;
+				text-align: center;
+				line-height: .3rem;
+				position: relative;
+				left: 3.35rem;
+			}
+			
+			.back-btn {
+				bottom: 1.7rem;
+			}
+			
+			.delete-btn {
+				bottom: 1.6rem;
+			}
+			
+			.zhuanzhu-btn {
+				width: .2rem;
+				height: .7rem;
+				background-color: #3879D9;
+				position: relative;
+				left: 3.4rem;
+				bottom: 1.5rem;
+				text-align: center;
+				border-top-left-radius: .14rem;
+				border-top-right-radius: .14rem;
+				border-bottom-right-radius: .14rem;
+				border-bottom-left-radius: .14rem;
+				color: #fff;
+				font-size: .12rem;
+				padding-top: .05rem;
+				line-height: .15rem;
+			}
+			.zhuanzhu-diy-area{
+				width: 100%;
+				height: 5rem;
+				margin-top:.4rem;
+				
+			}
 		</style>
 	</head>
 
 	<body class="mui-fullscreen">
 		<div class="mui-content" style="position: relative;">
+			<div class="zhuanzhu-model" style="display: none;">
+				<nav class="mui-bar mui-bar-tab zhuanzhu-tab">
+				    <a class="mui-tab-item " href="#delete-popover">   
+				         <i class="iconfont">&#xe61c;</i>
+				    </a>
+				    <a class="mui-tab-item zhuanzhu-img-btn" >
+				        <i class="iconfont">&#xe600;</i>
+				        
+				    </a>
+				    <a class="mui-tab-item zhuanzhu-sucai-btn">
+				        <i class="iconfont">&#xe73f;</i>
+				        
+				    </a>
+				    <a class="mui-tab-item zhuanzhu-text-btn">
+				         <i class="iconfont">&#xe60a;</i>
+				        
+				    </a>
+				     <a class="mui-tab-item godiy">
+				         <i class="iconfont">&#xe602;</i>
+				        
+				    </a>
+				</nav>
+				<div class="zhuanzhu-diy-area">
+					
+				</div>
+			</div>
 			<div class="diy-wrap" style="display: block;">
 				<div class="img-wrap">
 					<img style="width: 100%;" src="images/img.png" alt="" />
@@ -320,12 +391,25 @@
 				<div class="center-btn" style="">
 					<span class="mui-icon mui-icon-plusempty" style="line-height: inherit;"></span>
 				</div>
+
 				<div class="mui-row btn-wrap">
 					<div class="slide-btn img-btn">
-						<a href="#picture">图片</a>
+						图片
 					</div>
 					<div class="slide-btn sucai-btn">素材库</div>
 					<div class="slide-btn text-btn">文字</div>
+				</div>
+				<div class="right-btn back-btn">
+					背
+				</div>
+				<div class="right-btn delete-btn">
+					<a href="#delete-popover">
+						<span class="mui-icon mui-icon-trash"></span>
+					</a>
+					
+				</div>
+				<div class="zhuanzhu-btn">
+					专注模式
 				</div>
 				<div class="clothes-bar">
 					<img src="images/clothes.png" alt="" />
@@ -725,23 +809,37 @@
 			</div>
 
 		</div>
-
+		<div id="delete-popover" class="mui-popover mui-popover-action mui-popover-bottom" style="display: block;z-index: 999999;">
+			<ul class="mui-table-view" style="position: relative;">
+				<li class="mui-table-view-cell">
+					<p>该操作将清除所有编辑</p>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#" style="color: #f00;font-weight: 700;">清除</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#delete-popover" class=""><b>取消</b></a>
+				</li>
+			</ul>
+		</div>
 		<script type="text/javascript">
-		mui('.text-align-btn').on('tap','.text-align-left',function(){
-			$('.show-text').css({
-				"textAlign":'left'
+			mui('.text-align-btn').on('tap', '.text-align-left', function() {
+				$('.show-text').css({
+					"textAlign": 'left'
+				});
 			});
-		});
-		mui('.text-align-btn').on('tap','.text-align-center',function(){
-			$('.show-text').css({
-				"textAlign":'center'
+			mui('.text-align-btn').on('tap', '.text-align-center', function() {
+				$('.show-text').css({
+					"textAlign": 'center'
+				});
 			});
-		});
-		mui('.text-align-btn').on('tap','.text-align-right',function(){
-			$('.show-text').css({
-				"textAlign":'right'
+			mui('.text-align-btn').on('tap', '.text-align-right', function() {
+				$('.show-text').css({
+					"textAlign": 'right'
+				});
 			});
-		});
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
@@ -749,20 +847,18 @@
 			var rangeList = document.querySelectorAll('input[type="range"]');
 			for(var i = 0, len = rangeList.length; i < len; i++) {
 				rangeList[i].addEventListener('input', function() {
-					
+
 					if(this.id.indexOf('field') >= 0) {
 						document.getElementById(this.id + '-input').value = this.value;
 					} else {
 						document.getElementById(this.id + '-val').innerHTML = this.value;
 						$('.show-text').css({
-							'opacity':this.value/100
+							'opacity': this.value / 100
 						})
 					}
 
 				});
 			}
-
-			
 
 			mui('.mui-scroll-wrapper').scroll();
 			var onOff = true;
@@ -777,6 +873,7 @@
 					}, 100);
 				}, 100);
 			};
+			//显示隐藏图片，素材库，文字三个按钮
 			mui('body').on('tap', '.center-btn', function() {
 
 				if(onOff) {
@@ -878,12 +975,58 @@
 				$('.diy-wrap').hide();
 				$('.text-edit-wrap').show();
 			});
-			
+
 			//关闭素材列表
 			mui('.edit-area').on('tap', '.sure-btn', function() {
 				$('.text-edit-wrap').hide();
 				$('.diy-wrap').show();
 
+			});
+			//开启专注模式
+			mui('.diy-wrap').on('tap','.zhuanzhu-btn',function(){
+				$('.zhuanzhu-model').show();
+				$('.diy-wrap').hide();
+			});
+			//专注模式下的图片推荐列表
+			mui('.zhuanzhu-tab').on('tap','.zhuanzhu-img-btn',function(){
+				$('.zhuanzhu-model').hide();
+				$('.pic-list-wrap').show();
+				$('.pic-close-btn').removeClass('pic-close-btn').addClass('zhuanzhu-pic-close');
+			});
+			//关闭专注模式下的图片推荐列表
+			mui('.mui-bar').on('tap', '.zhuanzhu-pic-close', function() {
+				$('.pic-list-wrap').hide();
+				$('.zhuanzhu-model').show();
+				$(this).removeClass('zhuanzhu-pic-close').addClass('pic-close-btn');
+			});
+			//专注模式下的素材库
+			mui('.zhuanzhu-tab').on('tap','.zhuanzhu-sucai-btn',function(){
+				$('.zhuanzhu-model').hide();
+				$('.sucai-list-wrap').show();
+				$('.sucai-close-btn').removeClass('sucai-close-btn').addClass('zhuanzhu-sucai-close');
+			});
+			//关闭专注模式下的素材库
+			mui('.mui-bar').on('tap', '.zhuanzhu-sucai-close', function() {
+				$('.sucai-list-wrap').hide();
+				$('.zhuanzhu-model').show();
+				$(this).removeClass('zhuanzhu-sucai-close').addClass('sucai-close-btn');
+			});
+			//专注模式下的字体编辑
+			mui('.zhuanzhu-tab').on('tap','.zhuanzhu-text-btn',function(){
+				$('.zhuanzhu-model').hide();
+				$('.text-edit-wrap').show();
+				$('.sure-btn').addClass('zhuanzhu-sure-btn').removeClass('sure-btn');
+			});
+			//关闭专注模式下的字体编辑
+			mui('.edit-area').on('tap','.zhuanzhu-sure-btn',function(){
+				$('.text-edit-wrap').hide();
+				$('.zhuanzhu-model').show();
+				$(this).removeClass('zhuanzhu-sure-btn').addClass('sure-btn');
+			})
+			//关闭专注模式
+			mui('.zhuanzhu-tab').on('tap','.godiy',function(){
+				$('.zhuanzhu-model').hide();
+				$('.diy-wrap').show();
 			});
 		</script>
 	</body>
