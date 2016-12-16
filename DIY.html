@@ -296,6 +296,15 @@
 				text-align: center;
 			}
 			
+			.edit-btn i {
+				color: #333;
+			}
+			
+			.edit-btn.active p,
+			.edit-btn.active i {
+				color: #007aff;
+			}
+			
 			.color-list-bar li {
 				float: left;
 				list-style: none;
@@ -365,7 +374,8 @@
 				display: none;
 				background-color: #FF5053;
 			}
-			.show-color-box{
+			
+			.show-color-box {
 				position: absolute;
 				width: .18rem;
 				height: .18rem;
@@ -373,7 +383,6 @@
 				top: -.23rem;
 				left: 0rem;
 			}
-			
 		</style>
 	</head>
 
@@ -767,24 +776,61 @@
 					添加文字
 				</div>
 				<div class="edit-area">
-					<input type="text" /><span class="sure-btn">确定</span>
+					<input name="txt" class="text-ipt" type="text" /><span class="sure-btn">确定</span>
 					<div class="mui-row" style="padding-top:.1rem;">
-						<div class="mui-col-xs-4 edit-btn">
+						<div class="mui-col-xs-4 edit-btn on-focus ">
 							<i class="iconfont">&#xe61e;</i>
 							<p>键盘</p>
 						</div>
-						<div class="mui-col-xs-4 edit-btn">
+						<div class="mui-col-xs-4 edit-btn font-style active">
 							<i class="iconfont">&#xe651;</i>
 							<p>样式</p>
 						</div>
-						<div class="mui-col-xs-4 edit-btn">
+						<div class="mui-col-xs-4 edit-btn font-family">
 							<i class="iconfont">&#xe669;</i>
 							<p>字体</p>
 						</div>
 					</div>
 
 				</div>
-				<div class="mui-row style-control">
+				<div class="font-list" style="display: none;position: relative;height: 2.5rem;">
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+
+							<ul class="mui-table-view mui-table-view-radio">
+								<li class="mui-table-view-cell mui-selected">
+									<a class="mui-navigate-right ">设友</a>
+								</li>
+								<li class="mui-table-view-cell ">
+									<a class="mui-navigate-right">设友</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">设友</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">设友</a>
+								</li>
+								<li class="mui-table-view-cell ">
+									<a class="mui-navigate-right">设友</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">设友</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">设友</a>
+								</li>
+								<li class="mui-table-view-cell ">
+									<a class="mui-navigate-right">设友</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">设友</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+				<div class="mui-row style-control" style="display: block;">
 					<p class="style-text" style="">
 						颜色
 					</p>
@@ -806,9 +852,10 @@
 						<li style="background-color: #B22FAE;"></li>
 						<li style="background-color: #EC5CAA;"></li>
 						<li class="last-li" style="background-color: #F2AABF;"></li>
+						<!--颜色条上的滑块-->
 						<div class="color-slider drag">
 							<div class="show-color-box">
-								
+
 							</div>
 						</div>
 					</ul>
@@ -824,7 +871,7 @@
 							<i class="iconfont">&#xe615;</i>
 							<p>左对齐</p>
 						</div>
-						<div class="mui-col-xs-4 edit-btn text-align-center">
+						<div class="mui-col-xs-4 edit-btn text-align-center active">
 							<i class="iconfont">&#xe610;</i>
 							<p>居中</p>
 						</div>
@@ -1070,41 +1117,42 @@
 				var _x = Number(touch.pageX); //页面触点X坐标
 				var firstLiX = $('.first-li').offset().left;
 				var lastLiX = $('.last-li').offset().left;
-				 
-				if( _x<firstLiX ){
-							_x = firstLiX
-					};
-					if( _x> lastLiX){
-							_x = lastLiX
-					};
+
+				if(_x < firstLiX) {
+					_x = firstLiX
+				};
+				if(_x > lastLiX) {
+					_x = lastLiX
+				};
 				$('.drag').css({
-					left:_x
+					left: _x
 				})
-				
+
 				document.addEventListener('touchmove', function(e) {
 					if(_move) {
 						var touch = e.touches[0]; //获取第一个触点						
 						console.log(lastLiX)
-						
-					_x = Number(touch.pageX);
-					if( _x<firstLiX ){
+							//设置左边界	
+						_x = Number(touch.pageX);
+						if(_x < firstLiX) {
 							_x = firstLiX
-					};
-					if( _x> lastLiX){
+						};
+						//设置右边界
+						if(_x > lastLiX) {
 							_x = lastLiX
-					};
-					
-					var oLi = $('.color-list-bar li');
-					/*for(i=0;i<=oLi.length;i++){
-						if(_x ==$('.color-list-bar li')[i].offset().left ){
-							console.log("123")
-						}
-					}*/
-					
+						};
+
+						var oLi = $('.color-list-bar li');
+						/*for(i=0;i<=oLi.length;i++){
+							if(_x ==$('.color-list-bar li')[i].offset().left ){
+								console.log("123")
+							}
+						}*/
+
 						$('.drag').css({
-					left:_x
-				})						
-											
+							left: _x
+						})
+
 					}
 				})
 			});
@@ -1113,14 +1161,33 @@
 				_move = false;
 				$('.drag').hide();
 			});
-			mui('.color-list-bar ').on('tap','li',function(){
+			mui('.color-list-bar ').on('tap', 'li', function() {
 				var color = $(this).css('backgroundColor');
-				$('.drag').css('backgroundColor',color);
+				$('.drag').css('backgroundColor', color);
 				var dragBgc = $('.drag').css('backgroundColor')
 				console.log(dragBgc)
-				$('.show-text').css('color',dragBgc)
+				$('.show-text').css('color', dragBgc)
 			})
-			
+			mui('.edit-area').on('tap', '.on-focus', function() {
+				$('.text-ipt').focus();
+			})
+			mui('.text-edit-wrap').on('tap', '.edit-btn', function() {
+				$(this).addClass('active').siblings().removeClass('active');
+			})
+			mui('.edit-area').on('tap', '.font-style', function() {
+				$('.style-control').show();
+				$('.font-list').hide();
+				$('.text-ipt').blur();
+			})
+			mui('.edit-area').on('tap', '.font-family', function() {
+				$('.style-control').hide();
+				$('.font-list').show();
+				$('.text-ipt').blur();
+			})
+			mui('.edit-area').on('keyup','.text-ipt',function(){
+				var thisVal = $(this).val();
+				$('.show-text').text( thisVal );
+			})
 		</script>
 	</body>
 
